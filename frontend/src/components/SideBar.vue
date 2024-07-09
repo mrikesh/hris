@@ -10,8 +10,14 @@
         <li :class="{ active: isActive('/leave') }">
             <router-link to="/leave" active-class="active"><i class="eva eva-minus-circle-outline custom-icon"></i> Leave</router-link>
         </li>
+        <li :class="{ active: isActive('/policy') }">
+            <router-link to="/policy" active-class="active"><i class="eva eva-file-text-outline custom-icon"></i> Policy</router-link>
+        </li>
         <li :class="{ active: isActive('/profile') }">
             <router-link to="/profile" active-class="active"><i class="eva eva-person-outline custom-icon"></i> Profile</router-link>
+        </li>
+        <li :class="{ active: isActive('/login') }">
+            <router-link to="/login"><i class="eva eva-person-outline custom-icon"></i> Login</router-link>
         </li>
     </ul>
 </div>
