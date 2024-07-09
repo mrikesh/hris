@@ -3,7 +3,9 @@
   <NavBar />
 
   <div class="content-container">
-    <SideBar />
+    <div class="sidebar-container">
+      <SideBar />
+    </div>
     <div class="main-content">
       <RouterView />
     </div>
@@ -24,4 +26,20 @@ export default{
   }
 }
 </script>
+
+<style scoped>
+.content-container{
+  display: flex;
+  margin-top: 62px;
+}
+
+.main-content {
+  margin-left: 46px;
+  /* same as the sidebar width */
+  padding: 24px;
+  background-color: #ffffff;
+  height: 100vh;
+  width: 100%;
+}
+</style>
 

@@ -1,7 +1,5 @@
 <template>
-    <div class="container">
-        dashboard
-    </div>
+    dashboard
 </template>
 <script>
 export default{
