@@ -1,6 +1,6 @@
 <template>
 <div class="submit-btn-container">
-    <button class="submit-btn">{{submitTitle}}</button>
+    <button class="submit-btn" type="submit">{{submitTitle}}</button>
 </div>
 </template>
 

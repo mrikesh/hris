@@ -18,7 +18,7 @@
 
 <script>
 import PolicyInfo from '@/components/PolicyInfo.vue';
-import PageTitle from '../components/PageTitle.vue'
+import PageTitle from '@/components/PageTitle.vue';
 export default {
     name: "Training",
     components: {

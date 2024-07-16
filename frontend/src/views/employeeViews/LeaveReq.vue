@@ -14,12 +14,12 @@
 </template>
 
 <script>
-import AddBtn from '../components/AddBtn.vue'
-import RefreshBtn from '../components/RefreshBtn.vue'
-import ClearFilterBtn from '../components/ClearFilterBtn.vue'
-import PageTitle from '../components/PageTitle.vue'
-import FilterTab from '../components/FilterTab.vue'
-import TableInfo from '../components/TableInfo.vue'
+import AddBtn from '@/components/AddBtn.vue'
+import RefreshBtn from '@/components/RefreshBtn.vue'
+import ClearFilterBtn from '@/components/ClearFilterBtn.vue'
+import PageTitle from '@/components/PageTitle.vue'
+import FilterTab from '@/components/FilterTab.vue'
+import TableInfo from '@/components/TableInfo.vue'
 export default {
     name: "LeaveReq",
     components: {

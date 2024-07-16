@@ -1,8 +1,8 @@
 <template>
 <div class="sidebar">
     <ul>
-        <li :class="{ active: isActive('/') }">
-            <router-link to="/" active-class="active"><i class="eva eva-grid-outline custom-icon"></i> Dashboard</router-link>
+        <li :class="{ active: isActive('/dashboard') }">
+            <router-link to="/dashboard" active-class="active"><i class="eva eva-grid-outline custom-icon"></i> Dashboard</router-link>
         </li>
         <li :class="{ active: isActive('/attendances') }">
             <router-link to="/attendances" active-class="active"><i class="eva eva-activity-outline custom-icon"></i> Attendances</router-link>
@@ -15,10 +15,7 @@
         </li>
         <li :class="{ active: isActive('/profile') }">
             <router-link to="/profile" active-class="active"><i class="eva eva-person-outline custom-icon"></i> Profile</router-link>
-        </li>
-        <li :class="{ active: isActive('/login') }">
-            <router-link to="/login"><i class="eva eva-person-outline custom-icon"></i> Login</router-link>
-        </li>
+        </li>   
     </ul>
 </div>
 </template>

@@ -21,7 +21,7 @@ export default{
         },
         formName:{
             type: String,
-        },
+        }
     }
 }
 </script>

@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import DbCard from '../components/DbCard.vue'
-import BirthdateBtn from '../components/BirthdateBtn.vue'
+import DbCard from '@/components/DbCard.vue'
+import BirthdateBtn from '@/components/BirthdateBtn.vue'
 export default {
     name: "DashBoard",
     components: {

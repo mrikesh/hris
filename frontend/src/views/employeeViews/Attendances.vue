@@ -13,11 +13,11 @@
 </template>
 
 <script>
-import ClearFilterBtn from '../components/ClearFilterBtn.vue'
-import RefreshBtn from '../components/RefreshBtn.vue'
-import PageTitle from '../components/PageTitle.vue'
-import FilterTab from '../components/FilterTab.vue'
-import TableInfo from '../components/TableInfo.vue'
+import ClearFilterBtn from '@/components/ClearFilterBtn.vue'
+import RefreshBtn from '@/components/RefreshBtn.vue'
+import PageTitle from '@/components/PageTitle.vue'
+import FilterTab from '@/components/FilterTab.vue'
+import TableInfo from '@/components/TableInfo.vue'
 export default {
     name: "Attendances",
     components: {
