@@ -20,7 +20,7 @@
 import PolicyInfo from '@/components/PolicyInfo.vue';
 import PageTitle from '@/components/PageTitle.vue';
 export default {
-    name: "Training",
+    name: "HrPolicy",
     components: {
         PageTitle,
         PolicyInfo,

@@ -15,7 +15,7 @@ export default{
 }
 </script>
 
-<style>
+<style scoped>
 .submit-btn-container{
     margin: 20px 10px;
     width: 400px;

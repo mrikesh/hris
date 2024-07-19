@@ -1,36 +1,34 @@
 <template>
 <div class="sidebar">
     <ul>
-        <li :class="{ active: isActive('/dashboard') }">
-            <router-link to="/dashboard" active-class="active"><i class="eva eva-grid-outline custom-icon"></i> Dashboard</router-link>
+        <li v-for="item in items" :key="item.path" :class="{ active: isActive(item.path) }">
+            <router-link :to="item.path" active-class="active">
+                <i :class="item.icon + ' custom-icon'"></i> {{ item.name }}
+            </router-link>
         </li>
-        <li :class="{ active: isActive('/attendances') }">
-            <router-link to="/attendances" active-class="active"><i class="eva eva-activity-outline custom-icon"></i> Attendances</router-link>
-        </li>
-        <li :class="{ active: isActive('/leave') }">
-            <router-link to="/leave" active-class="active"><i class="eva eva-minus-circle-outline custom-icon"></i> Leave</router-link>
-        </li>
-        <li :class="{ active: isActive('/policy') }">
-            <router-link to="/policy" active-class="active"><i class="eva eva-file-text-outline custom-icon"></i> Policy</router-link>
-        </li>
-        <li :class="{ active: isActive('/profile') }">
-            <router-link to="/profile" active-class="active"><i class="eva eva-person-outline custom-icon"></i> Profile</router-link>
-        </li>   
     </ul>
 </div>
 </template>
 
+  
 <script>
 export default {
     name: 'SideBar',
+    props: {
+        items: {
+            type: Array,
+            required: true,
+        },
+    },
     methods: {
         isActive(path) {
             return this.$route.path === path;
-        }
-    }
+        },
+    },
 };
 </script>
 
+  
 <style scoped>
 .sidebar {
     border: 1px solid #dfdbda;

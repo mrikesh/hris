@@ -15,7 +15,7 @@ import SideBar from '@/components/SideBar.vue';
 import NavBar from '@/components/NavBar.vue';
 
 export default {
-    name: 'EmployeeApp',
+    name: 'AdminApp',
     components: {
         NavBar,
         SideBar,
@@ -24,22 +24,37 @@ export default {
         return {
             sidebarItems: [{
                     name: 'Dashboard',
-                    path: '/dashboard',
+                    path: '/ad-dashboard',
                     icon: 'eva eva-grid-outline'
                 },
                 {
+                    name: 'Employees',
+                    path: '/ad-employee',
+                    icon: 'eva eva-people-outline'
+                },
+                {
+                    name: 'Departments',
+                    path: '/ad-department',
+                    icon: 'eva eva-briefcase-outline'
+                },
+                {
+                    name: 'Position',
+                    path: '/ad-position',
+                    icon: 'eva eva-person-outline'
+                },
+                {
                     name: 'Attendances',
-                    path: '/attendances',
+                    path: '/ad-attendance',
                     icon: 'eva eva-activity-outline'
                 },
                 {
                     name: 'Leave',
-                    path: '/leave',
+                    path: '/ad-leave',
                     icon: 'eva eva-minus-circle-outline'
                 },
                 {
                     name: 'Policy',
-                    path: '/policy',
+                    path: 'policy',
                     icon: 'eva eva-file-text-outline'
                 },
                 {
