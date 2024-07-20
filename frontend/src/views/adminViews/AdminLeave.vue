@@ -1,11 +1,19 @@
 <template>
-    <div class="container">
+    <div class="card">
+        <div class="table-top">
+            <PageTitle title="Leave" />
+        </div>
         
     </div>
     </template>
     
     <script>
-    export default{
-        name: 'AdminLeave'
+    import PageTitle from '@/components/PageTitle.vue'
+    
+    export default {
+        name: 'AdminLeave',
+        components: {
+            PageTitle,
+        },
     }
     </script>

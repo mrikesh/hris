@@ -1,11 +1,19 @@
 <template>
-    <div class="container">
+    <div class="card">
+        <div class="table-top">
+            <PageTitle title="Attendances" />
+        </div>
         
     </div>
     </template>
     
     <script>
-    export default{
-        name: 'AdminAttendance'
+    import PageTitle from '@/components/PageTitle.vue'
+    
+    export default {
+        name: 'AdminAttendance',
+        components: {
+            PageTitle,
+        },
     }
     </script>

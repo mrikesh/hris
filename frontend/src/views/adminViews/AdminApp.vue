@@ -53,6 +53,21 @@ export default {
                     icon: 'eva eva-minus-circle-outline'
                 },
                 {
+                    name: 'Projects',
+                    path: '/ad-leave',
+                    icon: 'eva eva-folder-outline'
+                },
+                {
+                    name: 'Payroll',
+                    path: '/ad-leave',
+                    icon: 'eva eva-credit-card-outline'
+                },
+                {
+                    name: 'Assets',
+                    path: '/ad-leave',
+                    icon: 'eva eva-speaker-outline'
+                },
+                {
                     name: 'Policy',
                     path: 'policy',
                     icon: 'eva eva-file-text-outline'
