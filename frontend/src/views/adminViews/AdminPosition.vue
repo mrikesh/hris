@@ -3,8 +3,8 @@
     <div class="table-top">
         <PageTitle title="Positions" />
     </div>
-    <div>
-        <div class="add-department">
+    <div class="position-container">
+        <div class="add-position">
             <form @submit.prevent="addPosition">
                 <MFormTitle formTitle="Add Position" />
                 <hr />
@@ -117,7 +117,11 @@ export default {
 </script>
 
 <style scoped>
-.add-department {
+.position-container{
+    width: 100%;
+}
+
+.add-position {
     margin: 12px 16px;
     width: 30%;
     border: 1px solid #dfdbda;
