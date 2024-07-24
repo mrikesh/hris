@@ -18,10 +18,7 @@
     <hr>
     <div class="profile-content">
         <ProfileInfoDetails profile-content-title="Personal Information" :profileDetails="personalInfo" />
-        <ProfileInfoDetails profile-content-title="Address Information" :profileDetails="addressInfo" />
         <ProfileInfoDetails profile-content-title="Official Information" :profileDetails="officialInfo" />
-        <ProfileInfoDetails profile-content-title="Assigned Projects" :profileDetails="assignedProjectInfo" />
-        <ProfileInfoDetails profile-content-title="Contact Person Details" :profileDetails="contactPersonInfo" />
     </div>
 </div>
 </template>
@@ -41,7 +38,7 @@ export default {
     data() {
         return {
             personalInfo: [{
-                    title: "Supervisor",
+                    title: "Full Name",
                     info: "John Doe"
                 },
                 {
@@ -49,41 +46,20 @@ export default {
                     info: "Male"
                 },
                 {
+                    title: "Address",
+                    info: "DurbarMarg"
+                },
+                {
+                    title: "Phone No.",
+                    info: "(123) 456-7890"
+                },
+                {
                     title: "DOB",
-                    info: "john.doe@example.com"
-                },
-                {
-                    title: "Religion",
-                    info: "(123) 456-7890"
-                },
-                {
-                    title: "Workstation",
-                    info: "John Doe"
-                },
-                {
-                    title: "Type",
-                    info: "Male"
-                },
-                {
-                    title: "Subject",
-                    info: "john.doe@example.com"
-                },
-                {
-                    title: "Academic Qualification",
-                    info: "(123) 456-7890"
-                }
-            ],
-            addressInfo: [{
-                    title: "Current Address",
-                    info: "123 Main St, Anytown, USA"
-                },
-                {
-                    title: "Permanent Address",
-                    info: "Anytown"
+                    info: "2000-01-24"
                 },
             ],
             officialInfo: [{
-                    title: "Vertical",
+                    title: "Employee ID",
                     info: "E12345"
                 },
                 {
@@ -91,44 +67,8 @@ export default {
                     info: "Engineering"
                 },
                 {
-                    title: "Pan Number",
+                    title: "Position",
                     info: "Software Engineer"
-                },
-                {
-                    title: "Account Number",
-                    info: "Jane Smith"
-                },
-                {
-                    title: "Bank Name",
-                    info: "E12345"
-                },
-                {
-                    title: "Branch Name",
-                    info: "Engineering"
-                },
-                {
-                    title: "Faculty",
-                    info: "Software Engineer"
-                },
-                {
-                    title: "Subject",
-                    info: "Jane Smith"
-                },
-            ],
-            assignedProjectInfo: [
-
-            ],
-            contactPersonInfo: [{
-                    title: "Name",
-                    info: "123 Main St, Anytown, USA"
-                },
-                {
-                    title: "Mobile Number",
-                    info: "Anytown"
-                },
-                {
-                    title: "Relation",
-                    info: "Anytown"
                 },
             ],
         }

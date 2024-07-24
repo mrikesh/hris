@@ -1,19 +1,92 @@
 <template>
-    <div class="card">
-        <div class="table-top">
-            <PageTitle title="Attendances" />
-        </div>
-        
+  <div class="card">
+    <div class="table-top">
+      <PageTitle title="Attendances" />
+      <div class="toolbar">
+        <AddAttendanceBtn />
+      </div>
     </div>
-    </template>
-    
-    <script>
-    import PageTitle from '@/components/PageTitle.vue'
-    
-    export default {
-        name: 'AdminAttendance',
-        components: {
-            PageTitle,
-        },
+    <div class="attendance-container">
+      <TableComponent :formTitle="'List of Employees'" :headers="headers" :rows="employeeRows">
+        <template v-slot:cell-4="{ rowIndex }">
+          <button class="edit-btn" @click="editEmployee(rowIndex)">Edit</button>
+          <button class="delete-btn" @click="deleteEmployee(rowIndex)">Delete</button>
+        </template>
+      </TableComponent>
+    </div>
+  </div>
+</template>
+
+<script>
+import PageTitle from '@/components/PageTitle.vue';
+import TableComponent from '@/components/TableComponent.vue';
+import AddAttendanceBtn from '@/components/AddAttendanceBtn.vue';
+
+export default {
+  name: 'AdminAttendance',
+  components: {
+    PageTitle,
+    TableComponent,
+    AddAttendanceBtn,
+  },
+  data() {
+    return {
+      headers: ['S.no', 'Employee Name', 'Email', 'Position', 'Actions'],
+      employeeRows: [
+        { id: 1, name: 'John Doe', email: 'john.doe@example.com', position: 'Software Engineer' },
+        { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com', position: 'Product Manager' },
+        { id: 3, name: 'Alice Johnson', email: 'alice.johnson@example.com', position: 'UX Designer' },
+        { id: 4, name: 'Bob Brown', email: 'bob.brown@example.com', position: 'QA Tester' }
+      ]
+    };
+  },
+  methods: {
+    editEmployee(rowIndex) {
+      console.log('Edit employee at index:', rowIndex);
+    },
+    deleteEmployee(rowIndex) {
+      console.log('Delete employee at index:', rowIndex);
     }
-    </script>
+  }
+};
+</script>
+
+
+<style scoped>
+
+.attendance-container{
+  padding: 0px 16px;
+}
+
+.table-top{
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-btn,
+.delete-btn {
+  margin-right: 10px;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background-color: #2374E1;
+}
+
+.edit-btn:hover {
+  background-color: #256fce;
+}
+
+.delete-btn {
+  background-color: #da1010;
+}
+
+.delete-btn:hover {
+  background-color: #c70d0d;
+}
+</style>
