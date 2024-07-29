@@ -1,144 +1,165 @@
+
 <template>
     <div>
-      <div class="btn-wrapper">
-        <button class="btn-container" @click="openModal" @mouseover="showTooltip" @mouseleave="hideTooltip">
-          <i class="material-icons">add</i>
-        </button>
-        <div v-if="isTooltipVisible" class="tooltip">
-          Add
-        </div>
-      </div>
-  
-      <!-- Modal Overlay -->
-      <div v-if="isModalVisible" class="modal-overlay" @click="closeModal">
-        <!-- Modal Content -->
-        <div class="modal-content" @click.stop>
-          <h2>Employee Details</h2>
-  
-          <form @submit.prevent="submitForm">
-            <!-- Personal Information Section -->
-            <fieldset>
-              <legend>Personal Information</legend>
-              <label for="fullname">Full Name:</label>
-              <input type="text" id="fullname" v-model="formData.fullname" required />
-  
-              <label>Gender:</label>
-              <div class="radio-group">
-                <label>
-                  <input type="radio" value="Male" v-model="formData.gender" />
-                  Male
-                </label>
-                <label>
-                  <input type="radio" value="Female" v-model="formData.gender" />
-                  Female
-                </label>
-                <label>
-                  <input type="radio" value="Other" v-model="formData.gender" />
-                  Other
-                </label>
-              </div>
-  
-              <label for="address">Address:</label>
-              <textarea id="address" v-model="formData.address" required></textarea>
-  
-              <label for="phone">Phone:</label>
-              <input type="tel" id="phone" v-model="formData.phone" required />
-  
-              <label for="dob">Date of Birth:</label>
-              <input type="date" id="dob" v-model="formData.dob" required />
-  
-              <label for="email">Email:</label>
-              <input type="email" id="email" v-model="formData.email" required />
-  
-              <label for="password">Password:</label>
-              <input type="password" id="password" v-model="formData.password" required />
-            </fieldset>
-  
-            <hr />
-  
-            <!-- Official Information Section -->
-            <fieldset>
-              <legend>Official Information</legend>
-              <label for="employeeId">Employee ID:</label>
-              <input type="text" id="employeeId" v-model="formData.employeeId" required />
-  
-              <label for="department">Department:</label>
-              <select id="department" v-model="formData.department" required>
-                <option value="" disabled>Select Department</option>
-                <option v-for="dept in departments" :key="dept" :value="dept">{{ dept }}</option>
-              </select>
-  
-              <label for="position">Position:</label>
-              <select id="position" v-model="formData.position" required>
-                <option value="" disabled>Select Position</option>
-                <option v-for="pos in positions" :key="pos" :value="pos">{{ pos }}</option>
-              </select>
-            </fieldset>
-  
-            <!-- Buttons -->
-            <div class="button-group">
-              <button type="submit" class="submit-btn">Submit</button>
-              <button type="button" class="cancel-btn" @click="closeModal">Cancel</button>
+        <div class="btn-wrapper">
+            <button class="btn-container" @click="openModal" @mouseover="showTooltip" @mouseleave="hideTooltip">
+                <i class="material-icons">add</i>
+            </button>
+            <div v-if="isTooltipVisible" class="tooltip">
+                Add
             </div>
-          </form>
         </div>
-      </div>
+    
+        <!-- Modal Overlay -->
+        <div v-if="isModalVisible" class="modal-overlay" @click="closeModal">
+            <!-- Modal Content -->
+            <div class="modal-content" @click.stop>
+                <h2>Employee Details</h2>
+    
+                <form @submit.prevent="submitForm">
+                    <!-- Personal Information Section -->
+                    <fieldset>
+                        <legend>Personal Information</legend>
+                        <label for="name">Full Name:</label>
+                        <input type="text" id="name" v-model="formData.name" required />
+    
+                        <label>Gender:</label>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" value="Male" v-model="formData.gender" />
+                                Male
+                            </label>
+                            <label>
+                                <input type="radio" value="Female" v-model="formData.gender" />
+                                Female
+                            </label>
+                            <label>
+                                <input type="radio" value="Other" v-model="formData.gender" />
+                                Other
+                            </label>
+                        </div>
+    
+                        <label for="address">Address:</label>
+                        <textarea id="address" v-model="formData.address" required></textarea>
+    
+                        <label for="phone">Phone:</label>
+                        <input type="tel" id="phone" v-model="formData.phone" required />
+    
+                        <label for="dob">Date of Birth:</label>
+                        <input type="date" id="dob" v-model="formData.dob" required />
+    
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" v-model="formData.email" required />
+                    </fieldset>
+    
+                    <hr />
+    
+                    <!-- Official Information Section -->
+                    <fieldset>
+                        <legend>Official Information</legend>
+    
+                        <label for="department">Department:</label>
+                        <select id="department" v-model="formData.department" required>
+                            <option value="" disabled>Select Department</option>
+                            <option v-for="dept in departments" :key="dept" :value="dept">{{ dept }}</option>
+                        </select>
+    
+                        <label for="position">Position:</label>
+                        <select id="position" v-model="formData.position" required>
+                            <option value="" disabled>Select Position</option>
+                            <option v-for="pos in positions" :key="pos" :value="pos">{{ pos }}</option>
+                        </select>
+                    </fieldset>
+    
+                    <!-- Buttons -->
+                    <div class="button-group">
+                        <button type="submit" class="submit-btn">Submit</button>
+                        <button type="button" class="cancel-btn" @click="closeModal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    name: "AddBtn",
-    data() {
-      return {
-        isTooltipVisible: false,
-        isModalVisible: false,
-        formData: {
-          fullname: '',
-          gender: '',
-          address: '',
-          phone: '',
-          dob: '',
-          email: '',
-          password: '',
-          employeeId: '',
-          department: '',
-          position: ''
+    </template>
+    
+    <script>
+    import axios from 'axios';
+    
+    export default {
+        name: "AddBtn",
+        data() {
+            return {
+                isTooltipVisible: false,
+                isModalVisible: false,
+                formData: {
+                    name: '',
+                    gender: '',
+                    address: '',
+                    phone: '',
+                    dob: '',
+                    email: '',
+                    department: '',
+                    position: ''
+                },
+                departments: ['HR', 'Engineering', 'Sales', 'Marketing'], // Example departments
+                positions: ['Manager', 'Developer', 'Analyst', 'Designer'] // Example positions
+            };
         },
-        departments: ['HR', 'Engineering', 'Sales', 'Marketing'], // Example departments
-        positions: ['Manager', 'Developer', 'Analyst', 'Designer'] // Example positions
-      };
-    },
-    methods: {
-      showTooltip() {
-        this.isTooltipVisible = true;
-      },
-      hideTooltip() {
-        this.isTooltipVisible = false;
-      },
-      openModal() {
-        this.isModalVisible = true;
-      },
-      closeModal() {
-        this.isModalVisible = false;
-      },
-      submitForm() {
-        // Handle form submission
-        console.log('Form submitted with:', this.formData);
-        this.closeModal(); // Hide the modal after submission
-      }
-    }
-  };
-  </script>
-  
-  <style scoped>
-  .btn-wrapper {
+        methods: {
+            showTooltip() {
+                this.isTooltipVisible = true;
+            },
+            hideTooltip() {
+                this.isTooltipVisible = false;
+            },
+            openModal() {
+                this.isModalVisible = true;
+            },
+            closeModal() {
+                this.isModalVisible = false;
+            },
+            async submitForm() {
+                try {
+                    // Send the form data to your API endpoint
+                    const response = await axios.post('http://127.0.0.1:8000/api/employee', this.formData);
+                    console.log('Employee added:', response.data);
+                    // Close the modal after submission
+                    this.closeModal();
+                    // Reset the form data
+                    this.resetFormData();
+                } catch (error) {
+                    console.error('Error adding employee:', error.response?.data || error.message);
+                }
+            },
+            resetFormData() {
+                this.formData = {
+                    name: '',
+                    gender: '',
+                    address: '',
+                    phone: '',
+                    dob: '',
+                    email: '',
+                    department: '',
+                    position: ''
+                };
+            }
+        }
+    };
+    </script>
+    
+    <style scoped>
+    /* Your existing styles remain unchanged */
+    </style>
+    
+
+<style scoped>
+.btn-wrapper {
     position: relative;
     display: inline-block;
-  }
-  
-  .btn-container {
-    margin-left: 8px;
+}
+
+.btn-container {
+    margin: 0 0 0 8px;
     width: 42px;
     height: 42px;
     display: flex;
@@ -150,13 +171,13 @@
     color: #ffffff;
     font-size: 24px;
     cursor: pointer;
-  }
-  
-  .btn-container:hover {
+}
+
+.btn-container:hover {
     background-color: #3d84e3;
-  }
-  
-  .tooltip {
+}
+
+.tooltip {
     position: absolute;
     top: 100%;
     left: 50%;
@@ -170,18 +191,19 @@
     white-space: nowrap;
     opacity: 0;
     animation: fadeIn 0.3s forwards;
-  }
-  
-  @keyframes fadeIn {
+}
+
+@keyframes fadeIn {
     from {
-      opacity: 0;
+        opacity: 0;
     }
+
     to {
-      opacity: 1;
+        opacity: 1;
     }
-  }
-  
-  .modal-overlay {
+}
+
+.modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -192,9 +214,9 @@
     justify-content: center;
     align-items: center;
     z-index: 9999;
-  }
-  
-  .modal-content {
+}
+
+.modal-content {
     background: #ffffff;
     padding: 20px;
     border-radius: 8px;
@@ -203,41 +225,41 @@
     max-width: 90%;
     max-height: 80vh;
     overflow-y: auto;
-  }
-  
-  .modal-content h2 {
+}
+
+.modal-content h2 {
     margin-top: 0;
     font-size: 24px;
     color: #333;
-  }
-  
-  fieldset {
+}
+
+fieldset {
     border: none;
     margin-bottom: 16px;
     padding: 0;
-  }
-  
-  legend {
+}
+
+legend {
     font-weight: 500;
     margin: 12px 0;
     font-size: 18px;
     color: #555;
-  }
-  
-  label {
+}
+
+label {
     display: block;
     margin: 8px 0 4px;
     font-size: 14px;
     color: #333;
-  }
-  
-  input[type="text"],
-  input[type="tel"],
-  input[type="date"],
-  input[type="email"],
-  input[type="password"],
-  textarea,
-  select {
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="date"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
     width: 100%;
     padding: 10px;
     border-radius: 4px;
@@ -245,25 +267,25 @@
     font-size: 14px;
     color: #333;
     box-sizing: border-box;
-  }
-  
-  textarea {
+}
+
+textarea {
     height: 80px;
-  }
-  
-  .radio-group {
+}
+
+.radio-group {
     display: flex;
     gap: 12px;
     margin-bottom: 8px;
-  }
-  
-  .radio-group label {
+}
+
+.radio-group label {
     display: flex;
     align-items: center;
     font-size: 14px;
-  }
-  
-  button {
+}
+
+button {
     margin-top: 8px;
     padding: 10px 15px;
     border-radius: 4px;
@@ -271,23 +293,22 @@
     cursor: pointer;
     font-size: 14px;
     color: #fff;
-  }
-  
-  .submit-btn {
+}
+
+.submit-btn {
     background-color: #2374e1;
     margin-right: 10px;
-  }
-  
-  .submit-btn:hover {
+}
+
+.submit-btn:hover {
     background-color: #256fce;
-  }
-  
-  .cancel-btn {
+}
+
+.cancel-btn {
     background-color: #ccc;
-  }
-  
-  .cancel-btn:hover {
+}
+
+.cancel-btn:hover {
     background-color: #999;
-  }
-  </style>
-  
+}
+</style>

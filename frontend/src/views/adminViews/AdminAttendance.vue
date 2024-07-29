@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="attendance-container">
-      <TableComponent :formTitle="'List of Employees'" :headers="headers" :rows="employeeRows">
+      <TableComponent :formTitle="'Employee Attendances'" :headers="headers" :rows="employeeRows">
         <template v-slot:cell-4="{ rowIndex }">
           <button class="edit-btn" @click="editEmployee(rowIndex)">Edit</button>
           <button class="delete-btn" @click="deleteEmployee(rowIndex)">Delete</button>
@@ -31,12 +31,9 @@ export default {
   },
   data() {
     return {
-      headers: ['S.no', 'Employee Name', 'Email', 'Position', 'Actions'],
+      headers: ['S.no', 'Date', 'Employee Id', 'Employee Name', 'Check-In', 'Check-Out', 'Actions'],
       employeeRows: [
-        { id: 1, name: 'John Doe', email: 'john.doe@example.com', position: 'Software Engineer' },
-        { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com', position: 'Product Manager' },
-        { id: 3, name: 'Alice Johnson', email: 'alice.johnson@example.com', position: 'UX Designer' },
-        { id: 4, name: 'Bob Brown', email: 'bob.brown@example.com', position: 'QA Tester' }
+        { id: 1, date: '2024-07-24', employeeId: '114', name: 'John Doe', checkin: '10:28', checkout: '6:10' },
       ]
     };
   },

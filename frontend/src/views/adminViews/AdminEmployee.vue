@@ -8,7 +8,7 @@
         </div>
       <div class="list-employee">
         <TableComponent :formTitle="'List of Employees'" :headers="headers" :rows="employeeRows">
-          <template v-slot:cell-4="{ row, rowIndex }">
+          <template v-slot:cell-9="{ row, rowIndex }">
             <button class="edit-btn" @click="editEmployee(rowIndex)">Edit</button>
             <button class="delete-btn" @click="deleteEmployee(rowIndex)">Delete</button>
           </template>
@@ -53,7 +53,7 @@
       });
       const employees = ref([]);
   
-      const headers = ['S.no', 'Full Name', 'Gender', 'Address', 'Phone no.', 'DOB', 'Email', 'Employee ID', 'Department', 'Position', 'Actions'];
+      const headers = ['S.no', 'Full Name', 'Gender', 'Address', 'Phone no.', 'DOB', 'Email', 'Department', 'Position', 'Actions'];
   
       const fetchEmployees = async () => {
         try {
@@ -109,8 +109,13 @@
       const employeeRows = computed(() => {
         return employees.value.map((employee, index) => [
           index + 1,
-          employee.name,
-          employee.email,
+          employee.user.name,
+          employee.gender,
+          employee.address,
+          employee.phone,
+          employee.dob,
+          employee.user.email,
+          employee.department,
           employee.position,
           null, // Placeholder for action buttons
         ]);

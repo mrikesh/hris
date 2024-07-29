@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
@@ -35,3 +36,6 @@ Route::delete('/department/{id}', [DepartmentController::class, 'destroy']);
 Route::get('/position', [PositionController::class, 'index']);
 Route::post('/position-store', [PositionController::class, 'store']);
 Route::delete('/position/{id}', [PositionController::class, 'destroy']);
+
+Route::post('/employee', [EmployeeController::class, 'store']);
+Route::get('/employee', [EmployeeController::class, 'index']);

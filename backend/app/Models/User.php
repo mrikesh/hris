@@ -44,4 +44,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function employee()
+{
+    return $this->hasOne(Employee::class, 'emp_id'); // Make sure 'emp_id' is the foreign key in Employee
+}
 }
