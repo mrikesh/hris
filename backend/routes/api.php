@@ -26,8 +26,8 @@ Route::delete('/tasks/{id}', [TaskController::class, 'destroy']);
 
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login', [LoginController::class, 'login']);
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:sanctum');
 
 Route::get('/department', [DepartmentController::class, 'index']);
 Route::post('/department-store', [DepartmentController::class, 'store']);
