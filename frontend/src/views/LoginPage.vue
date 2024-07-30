@@ -55,14 +55,14 @@ export default {
       this.error = false;
 
       try {
-        const response = await axios.post('/api/login', this.form);
+        const response = await axios.post('http://127.0.0.1:8000/api/login', this.form);
         if (response.data.success) {
           // Store token and user info (for demonstration purposes)
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('user', JSON.stringify(response.data.user));
           
           // Redirect or handle successful login
-          this.$router.push({ name: 'dashboard' }); // Adjust as needed
+          this.$router.push({ name: 'ad-dashboard' }); // Adjust as needed
         } else {
           this.message = response.data.message;
           this.error = true;
