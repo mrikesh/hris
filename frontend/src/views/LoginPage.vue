@@ -1,114 +1,114 @@
 <template>
-    <div class="login-container">
-        <div class="container">
-            <div class="logo-container">
-                <img :src="imageSrc" alt="HR Logo" />
-            </div>
-            <div class="form-container">
-                <div class="form">
-                    <div class="login-title">
-                        <h1>Get Started</h1>
-                    </div>
-                    <form @submit.prevent="handleSubmit">
-                        <FormInput v-model="email" inputType="text" placeHolder="Email*" formName="email" />
-                        <FormInput v-model="password" inputType="password" placeHolder="Password *" formName="password" />
-                        <FormSubmitBtn submitTitle="Login" />
-                        <p class="copyright">2024 © HRIS. All rights reserved.</p>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    </template>
-    
-    <script>
-    import axios from 'axios';
-    import FormSubmitBtn from '../components/FormComponents/FormSubmitBtn.vue';
-    import FormInput from '../components/FormComponents/FormInput.vue';
-    import hrLogo from '@/assets/hrLogo.svg';
-    
-    export default {
-        name: "LoginPage",
-        components: {
-            FormInput,
-            FormSubmitBtn,
-        },
-        data() {
-            return {
-                email: '',
-                password: '',
-                imageSrc: hrLogo,
-            };
-        },
-        methods: {
-            async handleSubmit() {
-                try {
-                    const response = await axios.post('/api/login', {
-                        email: this.email,
-                        password: this.password,
-                    });
-    
-                    if (response.data.success) {
-                        localStorage.setItem('token', response.data.token);
-                        if (response.data.role === 'admin') {
-                            this.$router.push({ name: 'ad-dashboard' });
-                        } else if (response.data.role === 'employee') {
-                            this.$router.push({ name: 'dashboard' });
-                        }
-                    } else {
-                        alert('Invalid login credentials');
-                    }
-                } catch (error) {
-                    console.error('Login error:', error);
-                    alert('An error occurred during login.');
-                }
-            }
-        }
+  <div class="login">
+    <h2>Login</h2>
+    <form @submit.prevent="login">
+      <div v-if="message" :class="{'error': error}">
+        {{ message }}
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          v-model="form.email"
+          :class="{'is-invalid': errors.email}"
+        />
+        <div v-if="errors.email" class="error">{{ errors.email[0] }}</div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          v-model="form.password"
+          :class="{'is-invalid': errors.password}"
+        />
+        <div v-if="errors.password" class="error">{{ errors.password[0] }}</div>
+      </div>
+
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      form: {
+        email: '',
+        password: ''
+      },
+      errors: {},
+      message: '',
+      error: false
     };
-    </script>
-    
-    <style scoped>
-    .login-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
+  },
+  methods: {
+    async login() {
+      this.errors = {};
+      this.message = '';
+      this.error = false;
+
+      try {
+        const response = await axios.post('/api/login', this.form);
+        if (response.data.success) {
+          // Store token and user info (for demonstration purposes)
+          localStorage.setItem('token', response.data.token);
+          localStorage.setItem('user', JSON.stringify(response.data.user));
+          
+          // Redirect or handle successful login
+          this.$router.push({ name: 'dashboard' }); // Adjust as needed
+        } else {
+          this.message = response.data.message;
+          this.error = true;
+        }
+      } catch (error) {
+        if (error.response && error.response.data) {
+          const { data } = error.response;
+          if (data.message) {
+            this.message = data.message;
+            this.error = true;
+          }
+          if (data.errors) {
+            this.errors = data.errors;
+          }
+        } else {
+          this.message = 'An unexpected error occurred.';
+          this.error = true;
+        }
+      }
     }
-    
-    .container {
-        padding: 16px;
-        width: 100%;
-        display: flex;
-        border: 1px solid #c7c1c180;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    
-    .form-container {
-        width: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .login-title {
-        margin: 10px;
-    }
-    
-    .logo-container {
-        width: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-right: 1px solid #c7c1c180;
-    }
-    
-    .logo-container img {
-        width: 65%;
-    }
-    
-    .copyright {
-        margin: 10px;
-        font-size: 12px;
-    }
-    </style>
-    
+  }
+};
+</script>
+
+<style scoped>
+.login {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+}
+
+.error {
+  color: red;
+  font-size: 0.875rem;
+}
+</style>
