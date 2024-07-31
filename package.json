@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@canvasjs/charts": "^3.10.1",
+    "@canvasjs/vue-charts": "^1.0.4"
+  }
+}

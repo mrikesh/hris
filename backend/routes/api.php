@@ -31,10 +31,13 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:san
 
 Route::get('/department', [DepartmentController::class, 'index']);
 Route::post('/department-store', [DepartmentController::class, 'store']);
+Route::put('/department/{id}', [DepartmentController::class, 'update']);
 Route::delete('/department/{id}', [DepartmentController::class, 'destroy']);
+Route::get('/department/count', [DepartmentController::class, 'count']);
 
 Route::get('/position', [PositionController::class, 'index']);
 Route::post('/position-store', [PositionController::class, 'store']);
+Route::put('/position/{id}', [PositionController::class, 'update']);
 Route::delete('/position/{id}', [PositionController::class, 'destroy']);
 
 Route::post('/employee', [EmployeeController::class, 'store']);

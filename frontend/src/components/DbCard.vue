@@ -1,21 +1,21 @@
 <template>
-<div class="card-container">
-    <router-link :to="route" class="card-link">
-        <div class="card">
-            <div class="card-items">
-                <div class="card-img">
-                    <div class="img-box" :style="{ backgroundColor: imgBoxBgColor }">
-                        <span :style="{ color: iconColor }"><i :class="[iconClass, 'custom-icon']"></i></span>
+    <div class="card-container">
+        <router-link :to="route" class="card-link">
+            <div class="card">
+                <div class="card-items">
+                    <div class="card-img">
+                        <div class="img-box" :style="{ backgroundColor: imgBoxBgColor }">
+                            <span :style="{ color: iconColor }"><i :class="[iconClass, 'custom-icon']"></i></span>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <span class="db-title">{{ dbTitle }}</span><br>
+                        <span class="db-num">{{ dbNum }}</span>
                     </div>
                 </div>
-                <div class="card-info">
-                    <span class="db-title">{{ dbTitle }}</span><br>
-                    <span class="db-num">{{ dbNum }}</span>
-                </div>
             </div>
-        </div>
-    </router-link>
-</div>
+        </router-link>
+    </div>
 </template>
 
 <script>
@@ -88,11 +88,6 @@ export default {
     align-items: center;
     justify-content: center;
     font-size: 30px;
-}
-
-.img-box span {
-    display: flex;
-    align-items: center;
 }
 
 .card-info {

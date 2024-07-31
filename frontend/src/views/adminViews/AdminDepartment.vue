@@ -1,51 +1,51 @@
 <template>
-<div class="card">
-    <div class="table-top">
-        <PageTitle title="Departments" />
-    </div>
-    <div class="department-container">
-        <div class="add-department">
-            <form @submit.prevent="addDepartment">
-                <MFormTitle formTitle="Add Department" />
-                <hr />
-                <span class="labelInput">Department Name</span>
-                <MFormInput v-model="newDepartment.name" inputType="text" placeHolder="" formName="deptName" />
-                <MFormAddBtn addTitle="Add" />
-            </form>
+    <div class="card">
+        <div class="table-top">
+            <PageTitle title="Departments" />
         </div>
-
-        <div class="list-department">
-            <TableComponent :formTitle="'List of Departments'" :headers="headers" :rows="departmentRows">
-                <template v-slot:cell-2="{ row, rowIndex }">
-                    <button class="edit-btn" @click="editDepartment(rowIndex)">Edit</button>
-                    <button class="delete-btn" @click="deleteDepartment(rowIndex)">Delete</button>
-                </template>
-            </TableComponent>
+        <div class="department-container">
+            <div class="add-department">
+                <form @submit.prevent="isEditing ? updateDepartment() : addDepartment()">
+                    <MFormTitle formTitle="Add Department" />
+                    <hr />
+                    <span class="labelInput">Department Name</span>
+                    <MFormInput v-model="newDepartment.name" inputType="text" placeHolder="" formName="deptName" />
+                    <MFormAddBtn :addTitle="isEditing ? 'Update' : 'Add'" />
+                </form>
+            </div>
+    
+            <div class="list-department">
+                <TableComponent :formTitle="'List of Departments'" :headers="headers" :rows="departmentRows">
+                    <template v-slot:cell-2="{ row, rowIndex }">
+                        <button class="edit-btn" @click="editDepartment(rowIndex)">Edit</button>
+                        <button class="delete-btn" @click="deleteDepartment(rowIndex)">Delete</button>
+                    </template>
+                </TableComponent>
+            </div>
         </div>
     </div>
-</div>
 </template>
 
 <script>
-import TableComponent from '@/components/TableComponent.vue'
-import MFormTitle from '@/components/MenuFormComponents/MFormTitle.vue'
-import MFormInput from '@/components/MenuFormComponents/MFormInput.vue'
-import MFormAddBtn from '@/components/MenuFormComponents/MFormAddBtn.vue'
-import PageTitle from '@/components/PageTitle.vue'
+import TableComponent from '@/components/TableComponent.vue';
+import MFormTitle from '@/components/MenuFormComponents/MFormTitle.vue';
+import MFormInput from '@/components/MenuFormComponents/MFormInput.vue';
+import MFormAddBtn from '@/components/MenuFormComponents/MFormAddBtn.vue';
+import PageTitle from '@/components/PageTitle.vue';
 import {
     ref,
     onMounted,
-    computed
-} from 'vue'
-import axios from 'axios'
+    computed,
+} from 'vue';
+import axios from 'axios';
 
 const api = axios.create({
     baseURL: 'http://127.0.0.1:8000/api',
     headers: {
         'X-Requested-With': 'XMLHttpRequest',
-        'Content-Type': 'application/json'
-    }
-})
+        'Content-Type': 'application/json',
+    },
+});
 
 export default {
     name: 'AdminDepartment',
@@ -56,81 +56,106 @@ export default {
         MFormAddBtn,
         TableComponent,
     },
-    setup() {
-    const newDepartment = ref({
-        name: ''
-    })
-    const departments = ref([])
+    setup(props, { emit }) {
+        const newDepartment = ref({
+            name: '',
+        });
+        const departments = ref([]);
+        const isEditing = ref(false);
+        const editIndex = ref(null); // Store the index of the department being edited
 
-    const headers = ['S.no', 'Department Name', 'Actions']
+        const headers = ['S.no', 'Department Name', 'Actions'];
 
-    const fetchDepartments = async () => {
-        try {
-            console.log('Fetching departments...')
-            const response = await api.get('/department')
-            departments.value = response.data
-            console.log('Departments fetched:', departments.value)
-        } catch (error) {
-            console.error('Error fetching department:', error.response?.data || error.message)
-        }
-    }
-
-    const addDepartment = async () => {
-        try {
-            console.log('Adding department:', newDepartment.value.name)
-            const response = await api.post('/department-store', {
-                name: newDepartment.value.name
-            })
-            if (response.data) {
-                departments.value.push(response.data)
-                newDepartment.value.name = '' // Reset the department name after adding
-            } else {
-                console.error('Error: No data returned from API')
+        const fetchDepartments = async () => {
+            try {
+                const response = await api.get('/department');
+                departments.value = response.data;
+                emit('update-department-count', departments.value.length); // Emit the initial count
+            } catch (error) {
+                console.error('Error fetching department:', error.response?.data || error.message);
             }
-        } catch (error) {
-            console.error('Error adding department:', error.response?.data || error.message)
-        }
-    }
+        };
 
-    const editDepartment = async (index) => {
-        const id = departments.value[index].id
-        console.log('Edit department:', id)
-        // Implement edit functionality
-    }
+        const addDepartment = async () => {
+            try {
+                const response = await api.post('/department-store', {
+                    name: newDepartment.value.name,
+                });
+                if (response.data) {
+                    departments.value.push(response.data);
+                    emit('update-department-count', departments.value.length); // Emit updated count
+                    resetForm();
+                }
+            } catch (error) {
+                console.error('Error adding department:', error.response?.data || error.message);
+            }
+        };
 
-    const deleteDepartment = async (index) => {
-        const id = departments.value[index].id
-        console.log('Deleting department:', id)
-        try {
-            await api.delete(`/department/${id}`)
-            departments.value = departments.value.filter(department => department.id !== id)
-        } catch (error) {
-            console.error('Error deleting department:', error.response?.data || error.message)
-        }
-    }
+        const editDepartment = (index) => {
+            const department = departments.value[index];
+            newDepartment.value.name = department.name; // Set the name to the input field
+            isEditing.value = true; // Set editing mode
+            editIndex.value = index; // Store the index of the department being edited
+        };
 
-    onMounted(fetchDepartments)
+        const updateDepartment = async () => {
+            const id = departments.value[editIndex.value].id; // Get the ID of the department being edited
+            try {
+                const response = await api.put(`/department/${id}`, {
+                    name: newDepartment.value.name,
+                });
 
-    const departmentRows = computed(() => {
-        return departments.value.map((department, index) => [
-            index + 1, // Serial number
-            department.name,
-            null // Placeholder for action buttons
-        ])
-    })
+                if (response.data) {
+                    departments.value[editIndex.value].name = response.data.name;
+                    emit('update-department-count', departments.value.length); // Emit updated count
+                    resetForm();
+                }
+            } catch (error) {
+                console.error('Error updating department:', error.response?.data || error.message);
+            }
+        };
 
-    return {
-        newDepartment,
-        departments,
-        headers,
-        departmentRows,
-        addDepartment,
-        editDepartment,
-        deleteDepartment
-    }
-}
+        const deleteDepartment = async (index) => {
+            const id = departments.value[index].id;
+            try {
+                await api.delete(`/department/${id}`);
+                departments.value = departments.value.filter((department) => department.id !== id);
+                emit('update-department-count', departments.value.length); // Emit updated count
+            } catch (error) {
+                console.error('Error deleting department:', error.response?.data || error.message);
+            }
+        };
 
-}
+        const resetForm = () => {
+            newDepartment.value.name = ''; // Clear the input field
+            isEditing.value = false; // Reset editing mode
+            editIndex.value = null; // Clear the edit index
+        };
+
+        onMounted(fetchDepartments);
+
+        const departmentRows = computed(() => {
+            return departments.value.map((department, index) => [
+                index + 1, // Serial number
+                department.name,
+                null, // Placeholder for action buttons
+            ]);
+        });
+
+        return {
+            newDepartment,
+            departments,
+            headers,
+            departmentRows,
+            addDepartment,
+            editDepartment,
+            updateDepartment,
+            deleteDepartment,
+            resetForm,
+            isEditing, // Expose isEditing to the template
+        };
+    },
+};
 </script>
 
 <style scoped>
@@ -142,12 +167,10 @@ export default {
     margin: 12px 16px;
     width: 30%;
     height: 200px;
-    /* Fixed height */
     border: 1px solid #dfdbda;
     border-radius: 5px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
     overflow-y: auto;
-    /* Add scroll if content overflows */
 }
 
 hr {

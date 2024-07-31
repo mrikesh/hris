@@ -25,6 +25,27 @@ class PositionController extends Controller
         return response()->json($postn, 201);
     }
 
+    public function update(Request $request, $id)
+    {
+        // Validate the incoming request
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        // Find the position by ID
+        $position = Position::find($id);
+        if (!$position) {
+            return response()->json(['message' => 'Position not found'], 404);
+        }
+
+        // Update the position
+        $position->name = $request->name;
+        $position->save();
+
+        // Return the updated position
+        return response()->json($position, 200);
+    }
+
     public function destroy($id)
     {
         Position::destroy($id);
