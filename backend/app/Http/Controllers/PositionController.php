@@ -51,4 +51,10 @@ class PositionController extends Controller
         Position::destroy($id);
         return response()->json(null, 204);
     }
+
+    public function count()
+    {
+        $count = Position::count(); // Get the count of all departments
+        return response()->json(['count' => $count], 200); // Return the count in a JSON response
+    }
 }

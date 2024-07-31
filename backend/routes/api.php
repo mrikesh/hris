@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\LoginController;
+use App\Models\Position;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -39,6 +40,8 @@ Route::get('/position', [PositionController::class, 'index']);
 Route::post('/position-store', [PositionController::class, 'store']);
 Route::put('/position/{id}', [PositionController::class, 'update']);
 Route::delete('/position/{id}', [PositionController::class, 'destroy']);
+Route::get('/position/count', [PositionController::class, 'count']);
 
 Route::post('/employee', [EmployeeController::class, 'store']);
 Route::get('/employee', [EmployeeController::class, 'index']);
+Route::get('/employee/count', [EmployeeController::class, 'count']);

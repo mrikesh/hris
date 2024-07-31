@@ -77,4 +77,10 @@ class EmployeeController extends Controller
             return response()->json(['error' => 'Failed to create employee'], 500);
         }
     }
+
+    public function count()
+    {
+        $count = Employee::count(); // Get the count of all departments
+        return response()->json(['count' => $count], 200); // Return the count in a JSON response
+    }
 }

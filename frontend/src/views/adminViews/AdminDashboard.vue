@@ -4,9 +4,9 @@
             <span class="parent-title">{{ title }}</span>
         </div>
         <div class="cards">
-            <DbCard route="/ad-employee" dbTitle="Employees" dbNum="10" imgBoxBgColor="rgb(142, 106, 178)" iconColor="#ffffff" iconClass="eva eva-people-outline" />
+            <DbCard route="/ad-employee" dbTitle="Employees" :dbNum="employeeCount" imgBoxBgColor="rgb(142, 106, 178)" iconColor="#ffffff" iconClass="eva eva-people-outline" />
             <DbCard route="/ad-department" dbTitle="Departments" :dbNum="departmentCount" imgBoxBgColor="rgb(237, 132, 132)" iconColor="#ffffff" iconClass="eva eva-briefcase-outline" />
-            <DbCard route="/ad-position" dbTitle="Positions" dbNum="5" imgBoxBgColor="rgb(237, 132, 132)" iconColor="#ffffff" iconClass="eva eva-calendar-outline" />
+            <DbCard route="/ad-position" dbTitle="Positions" :dbNum="positionCount" imgBoxBgColor="rgb(237, 132, 132)" iconColor="#ffffff" iconClass="eva eva-calendar-outline" />
             <DbCard route="/ad-leave" dbTitle="Leave Request" dbNum="1" imgBoxBgColor="rgb(237, 132, 132)" iconColor="#ffffff" iconClass="eva eva-close-square-outline" />
         </div>
         <div class="flex w-full center space between">
@@ -37,11 +37,15 @@ export default {
     data() {
         return {
             title: 'Dashboard',
-            departmentCount: 0 // Initialize the department count
+            departmentCount: 0, // Initialize the department count
+            positionCount: 0,
+            employeeCount: 0,
         }
     },
     async mounted() {
         await this.fetchDepartmentCount(); // Fetch the department count when the component mounts
+        await this.fetchPositionCount();
+        await this.fetchEmployeeCount();
     },
     methods: {
         async fetchDepartmentCount() {
@@ -50,6 +54,22 @@ export default {
                 this.departmentCount = response.data.count; // Set the department count from the response
             } catch (error) {
                 console.error('Error fetching department count:', error.response?.data || error.message);
+            }
+        },
+        async fetchPositionCount() {
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/position/count'); // API call to fetch position count
+                this.positionCount = response.data.count; // Set the department count from the response
+            } catch (error) {
+                console.error('Error fetching position count:', error.response?.data || error.message);
+            }
+        },
+        async fetchEmployeeCount() {
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/employee/count'); // API call to fetch employee count
+                this.employeeCount = response.data.count; // Set the department count from the response
+            } catch (error) {
+                console.error('Error fetching employee count:', error.response?.data || error.message);
             }
         },
     }
